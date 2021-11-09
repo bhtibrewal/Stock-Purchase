@@ -3,15 +3,34 @@ import { useState } from "react";
 var initialPrice, quantity, currentPrice;
 export default function App() {
   const [output, setOutput] = useState(" ");
+  const [theme, setTheme] = useState({
+    backgroundColor: "lightslategray"
+  });
 
   function calcLoss() {
     var loss = (initialPrice - currentPrice) * quantity;
     var lossPercent = (loss / initialPrice) * 100;
+    if (lossPercent >= 50)
+      setTheme({
+        backgroundColor: "red"
+      });
+    else
+      setTheme({
+        backgroundColor: "lightslategray"
+      });
     return [loss, lossPercent];
   }
   function calcProfit() {
     var profit = (currentPrice - initialPrice) * quantity;
     var profitPercent = (profit / initialPrice) * 100;
+    if (profitPercent >= 50)
+      setTheme({
+        backgroundColor: "green"
+      });
+    else
+      setTheme({
+        backgroundColor: "lightslategray"
+      });
     return [profit, profitPercent];
   }
   function clickHandler() {
@@ -29,7 +48,7 @@ export default function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={theme}>
       <h1>Stock Purchase</h1>
       <div>
         <label>
